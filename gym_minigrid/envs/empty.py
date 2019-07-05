@@ -103,11 +103,11 @@ register(
 )
 
 register(
-    id='MiniGrid-EmptyMultiGoals-v0'
-    entry_point='gym_minigrid.envs.EmptyEnvMultiGoals'
+    id='MiniGrid-EmptyMultiGoals-v0',
+    entry_point='gym_minigrid.envs:EmptyEnvMultiGoals'
 )
 
 register(
-    id='MiniGrid-EmptyMultiGoalsRandomSpawn-v0'
-    entry_point='gym_minigrid.envs.EmptyEnvMultiGoalsRandomSpawn'
+    id='MiniGrid-EmptyMultiGoalsRandomSpawn-v0',
+    entry_point='gym_minigrid.envs:EmptyEnvMultiGoalsRandomSpawn'
 )
