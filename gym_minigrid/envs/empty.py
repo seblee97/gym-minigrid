@@ -11,11 +11,10 @@ class EmptyEnv(MiniGridEnv):
         size=8,
         agent_start_pos=(1,1),
         agent_start_dir=0,
-        goal_positions=[(-2, -2)]
     ):
         self.agent_start_pos = agent_start_pos
         self.agent_start_dir = agent_start_dir
-        self.goal_positions = goal_positions
+        self.goal_positions = []
         self.goals_collected = 0
 
         super().__init__(
@@ -34,7 +33,7 @@ class EmptyEnv(MiniGridEnv):
 
         # Place goals in each position in goal_positions
         for (x, y) in self.goal_positions:
-            self.grid.set(width - x, height - y, Goal())
+            self.grid.set(x, y, Goal())
 
         # Place the agent
         if self.agent_start_pos is not None:
@@ -101,4 +100,14 @@ register(
 register(
     id='MiniGrid-Empty-16x16-v0',
     entry_point='gym_minigrid.envs:EmptyEnv16x16'
+)
+
+register(
+    id='MiniGrid-EmptyMultiGoals-v0'
+    entry_point='gym_minigrid.envs.EmptyEnvMultiGoals'
+)
+
+register(
+    id='MiniGrid-EmptyMultiGoalsRandomSpawn-v0'
+    entry_point='gym_minigrid.envs.EmptyEnvMultiGoalsRandomSpawn'
 )
