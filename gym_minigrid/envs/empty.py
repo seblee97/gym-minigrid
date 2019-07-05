@@ -1,6 +1,8 @@
 from gym_minigrid.minigrid import *
 from gym_minigrid.register import register
 
+import random
+
 class EmptyEnv(MiniGridEnv):
     """
     Empty grid environment, no obstacles, sparse reward
@@ -14,8 +16,12 @@ class EmptyEnv(MiniGridEnv):
     ):
         self.agent_start_pos = agent_start_pos
         self.agent_start_dir = agent_start_dir
-        self.goal_positions = []
+        self.number_goals = []
+        self.random_goals = False
         self.goals_collected = 0
+
+        if not self.random_goals:
+            self.goal_positions = [random.randint(1, width - 2), random.randint(1, height - 2) for _ in range(self.number_goals)]
 
         super().__init__(
             grid_size=size,
@@ -32,8 +38,11 @@ class EmptyEnv(MiniGridEnv):
         self.grid.wall_rect(0, 0, width, height)
 
         # Place goals in each position in goal_positions
-        for (x, y) in self.goal_positions:
-            self.grid.set(x, y, Goal())
+        for i in range(self.number_goals):
+            if self.random_goals:
+                self.grid.set(random.randint(1, width - 2), random.randint(1, height - 2), Goal())
+            else:
+                self.grid.set(self.goal_positions[i][0], self.goal_positions[i][1], Goal())
 
         # Place the agent
         if self.agent_start_pos is not None:
