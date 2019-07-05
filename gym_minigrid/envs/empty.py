@@ -21,7 +21,7 @@ class EmptyEnv(MiniGridEnv):
         self.goals_collected = 0
 
         if not self.random_goals:
-            self.goal_positions = [random.randint(1, width - 2), random.randint(1, height - 2) for _ in range(self.number_goals)]
+            self.goal_positions = [(random.randint(1, width - 2), random.randint(1, height - 2)) for _ in range(self.number_goals)]
 
         super().__init__(
             grid_size=size,
