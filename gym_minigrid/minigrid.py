@@ -136,6 +136,9 @@ class Floor(WorldObj):
     def can_overlap(self):
         return True
 
+    def can_pickup(self):
+        return True
+
     def render(self, r):
         # Give the floor a pale color
         c = COLORS[self.color]
