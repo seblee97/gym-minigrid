@@ -116,6 +116,9 @@ class Goal(WorldObj):
     def can_overlap(self):
         return True
 
+    # def can_pickup(self):
+    #     return True
+
     def render(self, r):
         self._set_color(r)
         r.drawPolygon([
@@ -134,9 +137,6 @@ class Floor(WorldObj):
         super().__init__('floor', color)
 
     def can_overlap(self):
-        return True
-
-    def can_pickup(self):
         return True
 
     def render(self, r):
@@ -1122,6 +1122,7 @@ class MiniGridEnv(gym.Env):
                 self.agent_pos = fwd_pos
             if fwd_cell != None and fwd_cell.type == 'goal':
                 self.goals_collected += 1
+                self.grid.set(*fwd_pos, None)
                 if self.goals_collected == len(self.goal_positions):
                     done = True
                 reward = self._reward()
