@@ -1100,6 +1100,8 @@ class MiniGridEnv(gym.Env):
         reward = 0
         done = False
 
+        reward -= self.living_reward
+
         # Get the position in front of the agent
         fwd_pos = self.front_pos
 
@@ -1123,9 +1125,9 @@ class MiniGridEnv(gym.Env):
             if fwd_cell != None and fwd_cell.type == 'goal':
                 self.goals_collected += 1
                 self.grid.set(*fwd_pos, None)
-                if self.goals_collected == len(self.goal_positions):
+                if self.goals_collected == self.number_of_goals:
                     done = True
-                reward = self._reward()
+                reward += 1 # self._reward()
             if fwd_cell != None and fwd_cell.type == 'lava':
                 done = True
 
