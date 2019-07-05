@@ -695,7 +695,7 @@ class MiniGridEnv(gym.Env):
         })
 
         # Range of possible rewards
-        self.reward_range = (0, 1)
+        self.reward_range = (0, len(self.goal_positions))
 
         # Renderer object used to render the whole grid (full-scale)
         self.grid_render = None
@@ -1118,7 +1118,9 @@ class MiniGridEnv(gym.Env):
             if fwd_cell == None or fwd_cell.can_overlap():
                 self.agent_pos = fwd_pos
             if fwd_cell != None and fwd_cell.type == 'goal':
-                done = True
+                self.goals_collected += 1
+                if self.goals_collected == len(self.goal_positions):
+                    done = True
                 reward = self._reward()
             if fwd_cell != None and fwd_cell.type == 'lava':
                 done = True
