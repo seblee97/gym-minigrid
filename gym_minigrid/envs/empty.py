@@ -39,13 +39,17 @@ class EmptyEnv(MiniGridEnv):
         self.grid.wall_rect(0, 0, width, height)
 
         # Place goals in each position in goal_positions
-        for i in range(self.number_of_goals):
+        i = 0
+        while i < self.number_of_goals:
             if self.random_goals:
-                self.grid.set(random.randint(1, width - 2), random.randint(1, height - 2), Goal())
+                x = random.randint(1, width - 2)
+                y = random.randint(1, height - 2)
             else:
                 x = round(1 + (width - 3) * self.goal_positions[i][0])
                 y = round(1 + (height - 3) * self.goal_positions[i][1])
+            if self.grid.get(x, y) != Goal():
                 self.grid.set(x, y, Goal())
+                i += 1
 
         # Place the agent
         if self.agent_start_pos is not None:
